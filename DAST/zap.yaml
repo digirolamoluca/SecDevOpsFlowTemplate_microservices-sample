@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: owasp-zap
+  labels:
+    purpose: dast
+spec:
+  containers:
+  - name: owasp-zap
+    image: owasp/zap2docker-stable
+    command: ["bash"]
+    args: ["-c","zap-baseline.py -t ${ENDPOINT} -r $JOB_NAME.html"]
+    volumeMounts:
+    - mountPath: /zap/wrk/
+      name: test-volume
+  restartPolicy: Never
+  volumes:
+  - name: test-volume
+    hostPath:
+      path: /tmp/zap
