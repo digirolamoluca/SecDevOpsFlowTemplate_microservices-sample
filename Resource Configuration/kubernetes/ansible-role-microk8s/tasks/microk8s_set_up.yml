@@ -64,3 +64,9 @@
   loop:  "{{groups[ WORKERS ] }}"
   when: inventory_hostname in groups[ MASTER ]
   
+- name: Kubectl config
+  shell: "cd $HOME && mkdir .kube && cd .kube && microk8s config > config"
+  args:
+    executable: /bin/bash
+  run_once: true
+  delegate_to:  "{{groups[ MASTER ][0]}}"
