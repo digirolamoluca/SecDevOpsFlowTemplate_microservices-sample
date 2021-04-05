@@ -319,6 +319,6 @@ containers:
 _La variabile WP verrà inizializzata a tempo di esecuzione da Jenkins, con il valore di default presente in version.txt oppure con il parametro scambiato dalla pipeline che ha innescato il processo_
 
 # Demo
-![Gif Demo](https://i.imgur.com/edKYVMj.gif)
+![Gif Demo](https://i.ibb.co/fHPgkj6/Demo-3.gif)
 
 
