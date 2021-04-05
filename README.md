@@ -14,7 +14,7 @@ Il risultato è costituito da una serie di report riguardanti la valutazione del
 - [Requisiti](#Requisiti)
 - [Set-up Plugin in Jenkins](#set-up-plugin-in-jenkins)
 - [Guida all'uso](#guida-alluso)
-- [Licenza](#licenza)
+- [Creazione Pipeline](#creazione_pipeline)
 
 # Requisiti
   1) Jenkins Server, con i seguenti plugin e tool installati:
@@ -60,6 +60,14 @@ Per Integrare SonarQube vi è bisogno di inserire il Server authentication token
 ![My image](https://i.ibb.co/tLFKL41/sonarqube-token.png)
 
 # Guida all'uso
+Il processo di adozione del template prevede:
+
+  1) Fork del template
+  2) Compilazione dei campi variabili di esso
+  3) Creazione della/e repository che conterrà il codice del/i componenti dell'applicazione
+  4) Copiare in queste repository il Jenkins file contenuto nella cartella Microservice File
+  5) Creare le Pipeline in Jenkins
+
 Per poter utilizzare il template, una volta effettuato il Fork, bisogna inserire i parametri necessari al completamento di esso.  
 In particoalre i file su cui bisogna agire sono:
   - Provisioning
@@ -290,7 +298,7 @@ usernamePassword(credentialsId: 'GIT', passwordVariable: 'GIT_PASSWORD', usernam
 ```
 ## version.txt
 File utilizzato per tenere traccia delle versioni dei componenti da utilizzare quando la pipeline principale è schedulata da un divero componente.
-La versione del componente che avvia la pipeline principale sovrascrive il relativo valore tramite il blocco IF presentato precedentemente
+La versione del componente che avvia la pipeline principale sovrascrive il relativo valore tramite il blocco IF presentato precedentemente  
 _esempio_
 ```groovy
 //Add here stable container image version of you appplication
@@ -298,32 +306,19 @@ _esempio_
 env.WP="peppe2794/wordpressexample:latest"
 env.WP_DB="peppe2794/wordpressexample_db:latest"
 ```
+## Deploy
+Nella cartella Deploy/kubernetes caricare il manifest di deployment della propria applicazione.
+Per consentire a Jenkins di mettere in esecuzione la giusta versione dell'applicazione, evitando di utilizzare un valore statico, seguire la seguente forma del manifest
+_N.B. Il fle dovrà chiamarsi deployments.yaml_
+_esempio_
+
+```yml
+containers:
+  - image: $WP
+```
+_La variabile WP verrà inizializzata a tempo di esecuzione da Jenkins, con il valore di default presente in version.txt oppure con il parametro scambiato dalla pipeline che ha innescato il processo_
+
+# Creazione Pipeline
+Per completare il processo di adozione bisogna creare le Pipeline in Jenkins.
 
 
-
-
-### Link a documentazione esterna 
-
-# Come contribuire
-
-## Installare le dipendenze di sviluppo
-
-## Struttura del progetto
-
-## Community
-
-### Code of conduct
-
-### Responsible Disclosure
-
-### Segnalazione bug e richieste di aiuto
-
-# Manutenzione 
-
-# Licenza 
-
-## Licenza generale 
-
-## Autori e Copyright
-
-## Licenze software dei componenti di terze parti
