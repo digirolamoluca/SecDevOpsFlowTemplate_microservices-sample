@@ -14,7 +14,7 @@ Il risultato è costituito da una serie di report riguardanti la valutazione del
 - [Requisiti](#Requisiti)
 - [Set-up Plugin in Jenkins](#set-up-plugin-in-jenkins)
 - [Guida all'uso](#guida-alluso)
-- [Creazione Pipeline](#creazione_pipeline)
+- [Demo](#Demo)
 
 # Requisiti
   1) Jenkins Server, con i seguenti plugin e tool installati:
@@ -318,7 +318,7 @@ containers:
 ```
 _La variabile WP verrà inizializzata a tempo di esecuzione da Jenkins, con il valore di default presente in version.txt oppure con il parametro scambiato dalla pipeline che ha innescato il processo_
 
-# Creazione Pipeline
-Per completare il processo di adozione bisogna creare le Pipeline in Jenkins.
+# Demo
+![Gif Demo](https://s4.gifyu.com/images/Demo75719cd7f1bd5f74.gif)
 
 
