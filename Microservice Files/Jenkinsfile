@@ -53,7 +53,7 @@ pipeline {
   post{
     success{
       echo 'Post success'
-      build job: '${INSERIRE_NOME_PIPELINE_APPLICAZIONE}', parameters: [string (value: "$IMAGE"+":"+"$DOCKER_TAG", description: 'Parametro', name: '$IMAGE')]
+      build job: '${INSERIRE_NOME_PIPELINE_APPLICAZIONE}', parameters: [string (value: "$registry"+":"+"$DOCKER_TAG", description: 'Parametro', name: '$IMAGE')]
     }
   }
 }
