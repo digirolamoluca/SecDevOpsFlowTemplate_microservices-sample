@@ -307,9 +307,9 @@ env.WP="peppe2794/wordpressexample:latest"
 env.WP_DB="peppe2794/wordpressexample_db:latest"
 ```
 ## Deploy
-Nella cartella Deploy/kubernetes caricare il manifest di deployment della propria applicazione.
-Per consentire a Jenkins di mettere in esecuzione la giusta versione dell'applicazione, evitando di utilizzare un valore statico, seguire la seguente forma del manifest
-_N.B. Il fle dovrà chiamarsi deployments.yaml_
+Nella cartella Deploy/kubernetes caricare il manifest di deployment della propria applicazione.  
+Per consentire a Jenkins di mettere in esecuzione la giusta versione dell'applicazione, evitando di utilizzare un valore statico, seguire la seguente forma del manifest  
+_N.B. Il fle dovrà chiamarsi deployments.yaml_  
 _esempio_
 
 ```yml
