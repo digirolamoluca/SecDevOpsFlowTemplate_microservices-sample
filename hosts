@@ -1,8 +1,8 @@
 [KubWorker]
-{IP_WORKER}
+{INSERIRE IP}
 
 [KubMaster]
-{IP_MASTER}
+{INSERIRE IP}
 
 [KubCluster:children]
 KubMaster
