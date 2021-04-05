@@ -7,11 +7,30 @@
       deb: https://packages.chef.io/files/stable/inspec/4.20.2/ubuntu/18.04/inspec_4.20.2-1_amd64.deb
       
   - name: Execute static assessment
-    command: inspec exec ${PROFILE} --reporter html:/tmp/inspec_report.html --chef-license=accept
+    command: "{{item}}"
+    with_items:
+      - inspec exec {INSERIRE CHEF INSPEC PROFILE} --reporter html:/tmp/inspec_report.html --chef-license=accept
     register: result
     failed_when:
       - result.rc == 1
-  
-  - fetch:
-      src: /tmp/inspec_report.html
+
+  - name: Install openscap
+    apt:
+      name: libopenscap8
+      state: present
+  - name: Transfer scap datastream
+    copy: src={INSERIRE PATH POLICY OSCAP} dest=/tmp/oscap_policy.xml mode=0777
+ 
+  - name: Execute static assessment
+    command: oscap xccdf eval --profile {INSERIRE PROFILO DELLA POLICY SCELTA} --report /tmp/scap_report.html /tmp/scap_policy.xml
+    register: result
+    failed_when:
+      - result.rc == 1
+      
+  - name: Get Reports
+    fetch:
+      src: /tmp/{{ item }}
       dest: ../Results/
+    with_items:
+      - inspec_report.html
+      - oscap_report.html
