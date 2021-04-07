@@ -67,7 +67,11 @@ pipeline {
             //get report
             sshGet remote: kali, from: "/tmp/kali_zap_Report.html", into: "${WORKSPACE}/Results/${JOB_NAME}_kali_zap_report.html", override: true
             sshGet remote: remote, from: "/tmp/zap/${JOB_NAME}.html", into: "${WORKSPACE}/Results/${JOB_NAME}.html", override: true
-
+            
+            sh 'echo WPScan in Kali-Linux'
+            sshPut remote: kali, from: 'DAST/kali_wpscan.sh', into: '.'
+            sshCommand remote: kali, command: "chmod +x kali_zap.sh && ./kali_zap.sh {{INSERIRE ENDPOINT PER ZAP}} /tmp/kali_wpscan_Report.html"
+            
             withCredentials([usernamePassword(credentialsId: 'GIT', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
               sh 'git remote set-url origin "https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/provaorga/${JOB_NAME}.git"'
               sh 'git add Results/*'
