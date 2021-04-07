@@ -1,7 +1,7 @@
 #! /bin/bash
 echo "Launching WPScan"
 echo "ENDPOINT: $1"
-echo "REPORT:"
+echo "Report Path:"
 
 wpscan --url $1 -o $2
 
