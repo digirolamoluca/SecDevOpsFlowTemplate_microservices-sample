@@ -1,8 +1,8 @@
 [KubWorker]
-{INSERIRE IP}
+192.168.6.131
 
 [KubMaster]
-{INSERIRE IP}
+192.168.6.129
 
 [KubCluster:children]
 KubMaster
