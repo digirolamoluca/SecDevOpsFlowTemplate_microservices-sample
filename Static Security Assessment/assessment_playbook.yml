@@ -9,7 +9,7 @@
   - name: Execute static assessment
     command: "{{item}}"
     with_items:
-      - inspec exec {INSERIRE CHEF INSPEC PROFILE} --reporter html:/tmp/inspec_report.html --chef-license=accept
+      - inspec exec https://github.com/dev-sec/linux-baseline --reporter html:/tmp/inspec_report.html --chef-license=accept
     register: result
     failed_when:
       - result.rc == 1
@@ -19,10 +19,10 @@
       name: libopenscap8
       state: present
   - name: Transfer scap datastream
-    copy: src={INSERIRE PATH POLICY OSCAP} dest=/tmp/oscap_policy.xml mode=0777
+    copy: src=/home/digirolamo/scap-security-guide-0.1.50/ssg-ubuntu1804-ds-1.2.xml dest=/tmp/oscap_policy.xml mode=0777
  
   - name: Execute static assessment
-    command: oscap xccdf eval --profile {INSERIRE PROFILO DELLA POLICY SCELTA} --report /tmp/scap_report.html /tmp/scap_policy.xml
+    command: oscap xccdf eval --profile anssi_np_nt28_minimal --report /tmp/scap_report.html /tmp/scap_policy.xml
     register: result
     failed_when:
       - result.rc == 1
