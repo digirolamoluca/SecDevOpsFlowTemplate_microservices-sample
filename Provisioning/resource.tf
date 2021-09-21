@@ -1,22 +1,22 @@
 
 variable "ip_list"{
   type  =  list
-  default  =  ["{IP1}","{IP2}"]
+  default  =  ["192.168.6.131","192.168.6.129"]
 }
 variable "credentials_ciuser"{
   type  =  list
-  default  =  ["{USER1}","{USER2}"]
+  default  =  ["digirolamo","digirolamo2"]
 }
 variable "credentials_cipassword"{
   type  =  list
-  default  =  ["{PASSWORD1}","{PASSWORD2}"]
+  default  =  ["123456789","123456789"]
 }
 
 resource "proxmox_vm_qemu" "proxmox_vm1" {
-  count             = {VM_COUNT}
-  name              = "{VM_NAME}${count.index}"
+  count             = 2
+  name              = "kub${count.index}"
   target_node       = "pve"
-  clone             = "{VM_TEMPLATE_NAME}"
+  clone             = "Deploy"
   desc              = <<-EOT
             user: ${var.credentials_ciuser[count.index]}
             password: ${var.credentials_cipassword[count.index]}
@@ -24,10 +24,10 @@ resource "proxmox_vm_qemu" "proxmox_vm1" {
         EOT
   ciuser=  ${var.credentials_ciuser[count.index]}
   cipassword=  ${var.credentials_cipassword[count.index]}
-  memory = {MEMORY_IN_MB}
-  cores = "{CORE}"
+  memory = 4096
+  cores = "4"
   cpu = "kvm64"
-  pool = "{POOL}"
+  pool = "Tesi_DiGirolamo"
   define_connection_info = false
   hastate    =    "started"
   
@@ -35,7 +35,7 @@ resource "proxmox_vm_qemu" "proxmox_vm1" {
   ipconfig0  = "ip=${var.ip_list[count.index]}/24,gw={GATEWAY}"
   
 disk {
-  size         = "{SIZE_IN_MB}"
+  size         = "32768"
   storage      = "nas_storage"
   type         = "scsi"
 }
