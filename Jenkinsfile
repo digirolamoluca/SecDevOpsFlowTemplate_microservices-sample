@@ -77,7 +77,7 @@ variable "credentials_cipassword"{
             
             sh 'echo "DAST in Kali-Linux"'
             sshPut remote: kali, from: 'DAST/kali_zap.sh', into: '.'
-            sshCommand remote: kali, command: "chmod +x kali_zap.sh && ./kali_zap.sh {{INSERIRE ENDPOINT PER ZAP}} /tmp/kali_zap_Report.html"
+            sshCommand remote: kali, command: "chmod +x kali_zap.sh && ./kali_zap.sh http://192.168.6.78:8080 /tmp/kali_zap_Report.html"
             //delete oscap pod
             kubernetesDeploy configs: 'DAST/zap.yaml', kubeConfig: [path: ''], deleteResource: 'true', kubeconfigId: 'provafile', secretName: '', ssh: [sshCredentialsId: '*', sshServer: ''], textCredentials: [certificateAuthorityData: '', clientCertificateData: '', clientKeyData: '', serverUrl: 'https://']        
             //get report
@@ -88,7 +88,7 @@ variable "credentials_cipassword"{
             sshPut remote: kali, from: 'DAST/kali_wpscan.sh', into: '.'
             sshCommand remote: kali, command: "chmod +x kali_zap.sh && ./kali_zap.sh {{INSERIRE ENDPOINT PER ZAP}} /tmp/kali_wpscan_Report.html"
             
-            withCredentials([usernamePassword(credentialsId: 'GIT', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
+            withCredentials([usernamePassword(credentialsId: 'digirolamoluca', passwordVariable: 'gittabbodege9', usernameVariable: 'digirolamoluca')]) {
               sh 'git remote set-url origin "https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/provaorga/${JOB_NAME}.git"'
               sh 'git add Results/*'
               sh 'git commit -m "Add report File"'
