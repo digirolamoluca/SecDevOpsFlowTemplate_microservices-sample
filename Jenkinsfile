@@ -34,7 +34,7 @@ variable "credentials_cipassword"{
     }
     stage('Static Assessment Provisioned Environment'){
       steps{
-        withCredentials([usernamePassword(credentialsId: 'worker', passwordVariable: 'WORKER_PASS', usernameVariable: 'WORKER_USER'), usernamePassword(credentialsId: 'worker', passwordVariable: 'WORKER_SUDO_PASS', usernameVariable: ''), usernamePassword(credentialsId: 'master', passwordVariable: 'MASTER_PASS', usernameVariable: 'MASTER_USER'), usernamePassword(credentialsId: 'master', passwordVariable: 'MASTER_SUDO_PASS', usernameVariable: '')]){
+        withCredentials([usernamePassword(credentialsId: 'digirolamo2', passwordVariable: '123456789', usernameVariable: 'digirolamo2'), usernamePassword(credentialsId: 'digirolamo2', passwordVariable: '123456789', usernameVariable: ''), usernamePassword(credentialsId: 'digirolamo', passwordVariable: '123456789', usernameVariable: 'digirolamo'), usernamePassword(credentialsId: 'digirolamo', passwordVariable: '123456789', usernameVariable: '')]){
           ansiblePlaybook become: true, credentialsId: 'node', disableHostKeyChecking: true, installation: 'ansible', inventory: 'hosts', playbook: 'Static Security Assessment/assessment_playbook.yml'
         }
       }
@@ -56,7 +56,7 @@ variable "credentials_cipassword"{
     }
     stage('DAST'){
       steps{
-      withCredentials([usernamePassword(credentialsId: 'master', passwordVariable: 'MASTER_PASS', usernameVariable: 'MASTER_USER'), usernamePassword(credentialsId: 'KALI_CREDENTIALS', passwordVariable: 'KALI_PASS', usernameVariable: 'KALI_USER') ,string(credentialsId:'192.168.6.131', variable:'192.168.6.131'),, string(credentialsId:'KALI_IP', variable:'KALI_IP')]){
+      withCredentials([usernamePassword(credentialsId: 'digirolamo', passwordVariable: '123456789', usernameVariable: 'digirolamo'), usernamePassword(credentialsId: 'root', passwordVariable: '123456789', usernameVariable: 'root') ,string(credentialsId:'192.168.6.131', variable:'192.168.6.131'),, string(credentialsId:'192.168.6.78', variable:'192.168.6.78')]){
           script{
             def remote = [:]
             remote.name = "${MASTER_USER}"
