@@ -12,9 +12,22 @@ pipeline {
         }
       }
     }
+    
+    /*
+   
+  default  =  ["192.168.6.131","192.168.6.129"]
+}
+variable "credentials_ciuser"{
+  type  =  list
+  default  =  ["digirolamo","digirolamo2"]
+}
+variable "credentials_cipassword"{
+  type  =  list
+  default  =  ["123456789","123456789"]
+    */
     stage('Resource Configuration'){
       steps{
-        withCredentials([usernamePassword(credentialsId: 'worker', passwordVariable: 'WORKER_PASS', usernameVariable: 'WORKER_USER'), usernamePassword(credentialsId: 'worker', passwordVariable: 'WORKER_SUDO_PASS', usernameVariable: ''), usernamePassword(credentialsId: 'master', passwordVariable: 'MASTER_PASS', usernameVariable: 'MASTER_USER'), usernamePassword(credentialsId: 'master', passwordVariable: 'MASTER_SUDO_PASS', usernameVariable: '')]){
+        withCredentials([usernamePassword(credentialsId: 'digirolamo2', passwordVariable: '123456789', usernameVariable: 'digirolamo2'), usernamePassword(credentialsId: 'digirolamo2', passwordVariable: '123456789', usernameVariable: ''), usernamePassword(credentialsId: 'digirolamo', passwordVariable: '123456789', usernameVariable: 'digirolamo'), usernamePassword(credentialsId: 'digirolamo', passwordVariable: '123456789', usernameVariable: '')]){
           ansiblePlaybook become: true, credentialsId: 'node', disableHostKeyChecking: true, installation: 'ansible', inventory: 'hosts', playbook: 'Resource Configuration/set_up_cluster.yml'
         }
       }
@@ -43,7 +56,7 @@ pipeline {
     }
     stage('DAST'){
       steps{
-      withCredentials([usernamePassword(credentialsId: 'master', passwordVariable: 'MASTER_PASS', usernameVariable: 'MASTER_USER'), usernamePassword(credentialsId: 'KALI_CREDENTIALS', passwordVariable: 'KALI_PASS', usernameVariable: 'KALI_USER') ,string(credentialsId:'MASTER_IP', variable:'MASTER_IP'),, string(credentialsId:'KALI_IP', variable:'KALI_IP')]){
+      withCredentials([usernamePassword(credentialsId: 'master', passwordVariable: 'MASTER_PASS', usernameVariable: 'MASTER_USER'), usernamePassword(credentialsId: 'KALI_CREDENTIALS', passwordVariable: 'KALI_PASS', usernameVariable: 'KALI_USER') ,string(credentialsId:'192.168.6.131', variable:'192.168.6.131'),, string(credentialsId:'KALI_IP', variable:'KALI_IP')]){
           script{
             def remote = [:]
             remote.name = "${MASTER_USER}"
