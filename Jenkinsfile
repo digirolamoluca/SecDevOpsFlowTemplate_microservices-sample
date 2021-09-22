@@ -31,8 +31,11 @@ pipeline {
         script{
          load "version.txt"
          //Change to accept post build parameter from microservice related Pipeline
-          if(params.{IMAGE}){
-            env.{IMAGE}=params.{IMAGE}
+          if(params.WP){
+            env.WP=params.WP
+          }
+          if(params.WP_DB){
+            env.WP_DB=params.WP_DB
           }
          kubernetesDeploy configs: 'Deploy/Kubernetes/deployments.yaml', kubeConfig: [path: ''], kubeconfigId: 'kubconf', secretName: '', ssh: [sshCredentialsId: '*', sshServer: ''], textCredentials: [certificateAuthorityData: '', clientCertificateData: '', clientKeyData: '', serverUrl: 'https://']        
         }
