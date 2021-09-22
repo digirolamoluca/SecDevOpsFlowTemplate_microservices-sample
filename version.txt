@@ -1,3 +1,5 @@
 #Inserire il nome dell'immagine del microservizio da utilizzare per configurare le variabili nel manifest kubernetes
 #Example env.SERVICE= "DOCKER_HUB_REGISTRY/IMAGE_NAME:TAG"
 #Example env.WORDPRESS= "peppe2794/wordpressexample:latest"
+env.WP= "digirolamoluca/microservices-sample:latest"
+env.WP_DB= "peppe2794/microservice-sample_db:latest"
