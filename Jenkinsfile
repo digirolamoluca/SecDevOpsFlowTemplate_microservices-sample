@@ -21,27 +21,29 @@ pipeline {
     stage('Resource Configuration'){
       steps{
         sh 'echo Resource Configuration'
-        
+        /*
         withCredentials([usernamePassword(credentialsId: 'digirolamo2', passwordVariable: '123456789', usernameVariable: 'digirolamo2'), usernamePassword(credentialsId: 'digirolamo2', passwordVariable: '123456789', usernameVariable: ''), usernamePassword(credentialsId: 'digirolamo', passwordVariable: '123456789', usernameVariable: 'digirolamo'), usernamePassword(credentialsId: 'digirolamo', passwordVariable: '123456789', usernameVariable: '')]){
           ansiblePlaybook become: true, credentialsId: 'node', disableHostKeyChecking: true, installation: 'ansible', inventory: 'hosts', playbook: 'Resource Configuration/set_up_cluster.yml'
         
         }
+        */
       }
     }
     stage('Static Assessment Provisioned Environment'){
       steps{
         sh 'echo Static Assessment Provisioned Environment'
-        
+        /*
         withCredentials([usernamePassword(credentialsId: 'digirolamo2', passwordVariable: '123456789', usernameVariable: 'digirolamo2'), usernamePassword(credentialsId: 'digirolamo2', passwordVariable: '123456789', usernameVariable: ''), usernamePassword(credentialsId: 'digirolamo', passwordVariable: '123456789', usernameVariable: 'digirolamo'), usernamePassword(credentialsId: 'digirolamo', passwordVariable: '123456789', usernameVariable: '')]){
           ansiblePlaybook become: true, credentialsId: 'node', disableHostKeyChecking: true, installation: 'ansible', inventory: 'hosts', playbook: 'Static Security Assessment/assessment_playbook.yml'
        
        }
+       */
       }
     }
     stage('Deploy'){
       steps{
          sh 'echo Deploy'
-        
+        /*
         script{
          load "version.txt"
          //Change to accept post build parameter from microservice related Pipeline
@@ -52,13 +54,13 @@ pipeline {
             env.WP_DB=params.WP_DB
           }
          kubernetesDeploy configs: 'Deploy/Kubernetes/deployments.yaml', kubeConfig: [path: ''], kubeconfigId: 'kubconf', secretName: '', ssh: [sshCredentialsId: '*', sshServer: ''], textCredentials: [certificateAuthorityData: '', clientCertificateData: '', clientKeyData: '', serverUrl: 'https://']        
-        } 
+        }  */
       }    
     }
     stage('DAST'){//1
       steps{//2
-       // sh 'echo DAST'
-       
+       sh 'echo DAST'
+       /*
       withCredentials([usernamePassword(credentialsId: 'digirolamo', passwordVariable: '123456789', usernameVariable: 'digirolamo'), usernamePassword(credentialsId: 'root', passwordVariable: '123456789', usernameVariable: 'root') ,string(credentialsId:'192.168.6.131', variable:'192.168.6.131'),, string(credentialsId:'192.168.6.78', variable:'192.168.6.78')]){//3
           script{//4
             def remote = [:]
@@ -98,7 +100,7 @@ pipeline {
               sh 'git push origin HEAD:main'
             }//5
           }//4
-        }//3
+        }//3 */
       }//2
     }//1
   }
