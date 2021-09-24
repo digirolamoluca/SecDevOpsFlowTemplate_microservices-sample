@@ -6,41 +6,40 @@ pipeline {
   stages{
     stage('Provisioning VM on Proxmox with Terraform'){
       steps{
-        withCredentials([usernamePassword(credentialsId: 'Proxmox', passwordVariable: 'xbXif4P82Q88iA==', usernameVariable: 'th_digirolamo')]) {
+         sh 'echo Provisioning VM on Proxmox with Terraform'
+      /*  withCredentials([usernamePassword(credentialsId: 'Proxmox', passwordVariable: 'xbXif4P82Q88iA==', usernameVariable: 'th_digirolamo')]) {
           sh label: '', script: 'cd Provisioning; terraform init '
           sh label: '', script: 'cd Provisioning; export PM_USER=${USER}; export PM_PASS=${PASSWORD}; terraform apply  --auto-approve'
+        */
         }
       }
     }
     
-    /*
-   
-  default  =  ["192.168.6.131","192.168.6.129"]
-}
-variable "credentials_ciuser"{
-  type  =  list
-  default  =  ["digirolamo","digirolamo2"]
-}
-variable "credentials_cipassword"{
-  type  =  list
-  default  =  ["123456789","123456789"]
-    */
+
     stage('Resource Configuration'){
       steps{
+        sh 'echo Resource Configuration'
+        /*
         withCredentials([usernamePassword(credentialsId: 'digirolamo2', passwordVariable: '123456789', usernameVariable: 'digirolamo2'), usernamePassword(credentialsId: 'digirolamo2', passwordVariable: '123456789', usernameVariable: ''), usernamePassword(credentialsId: 'digirolamo', passwordVariable: '123456789', usernameVariable: 'digirolamo'), usernamePassword(credentialsId: 'digirolamo', passwordVariable: '123456789', usernameVariable: '')]){
           ansiblePlaybook become: true, credentialsId: 'node', disableHostKeyChecking: true, installation: 'ansible', inventory: 'hosts', playbook: 'Resource Configuration/set_up_cluster.yml'
+        */
         }
       }
     }
     stage('Static Assessment Provisioned Environment'){
       steps{
+        sh 'echo Static Assessment Provisioned Environment'
+        /*
         withCredentials([usernamePassword(credentialsId: 'digirolamo2', passwordVariable: '123456789', usernameVariable: 'digirolamo2'), usernamePassword(credentialsId: 'digirolamo2', passwordVariable: '123456789', usernameVariable: ''), usernamePassword(credentialsId: 'digirolamo', passwordVariable: '123456789', usernameVariable: 'digirolamo'), usernamePassword(credentialsId: 'digirolamo', passwordVariable: '123456789', usernameVariable: '')]){
           ansiblePlaybook become: true, credentialsId: 'node', disableHostKeyChecking: true, installation: 'ansible', inventory: 'hosts', playbook: 'Static Security Assessment/assessment_playbook.yml'
-        }
+       */
+       }
       }
     }
     stage('Deploy'){
       steps{
+         sh 'echo Deploy'
+        /*
         script{
          load "version.txt"
          //Change to accept post build parameter from microservice related Pipeline
@@ -51,13 +50,15 @@ variable "credentials_cipassword"{
             env.WP_DB=params.WP_DB
           }
          kubernetesDeploy configs: 'Deploy/Kubernetes/deployments.yaml', kubeConfig: [path: ''], kubeconfigId: 'kubconf', secretName: '', ssh: [sshCredentialsId: '*', sshServer: ''], textCredentials: [certificateAuthorityData: '', clientCertificateData: '', clientKeyData: '', serverUrl: 'https://']        
-        }
+        } */
       }    
     }
-    stage('DAST'){
-      steps{
-      withCredentials([usernamePassword(credentialsId: 'digirolamo', passwordVariable: '123456789', usernameVariable: 'digirolamo'), usernamePassword(credentialsId: 'root', passwordVariable: '123456789', usernameVariable: 'root') ,string(credentialsId:'192.168.6.131', variable:'192.168.6.131'),, string(credentialsId:'192.168.6.78', variable:'192.168.6.78')]){
-          script{
+    stage('DAST'){//1
+      steps{//2
+       // sh 'echo DAST'
+       
+      withCredentials([usernamePassword(credentialsId: 'digirolamo', passwordVariable: '123456789', usernameVariable: 'digirolamo'), usernamePassword(credentialsId: 'root', passwordVariable: '123456789', usernameVariable: 'root') ,string(credentialsId:'192.168.6.131', variable:'192.168.6.131'),, string(credentialsId:'192.168.6.78', variable:'192.168.6.78')]){//3
+          script{//4
             def remote = [:]
             remote.name = "${MASTER_USER}"
             remote.host = "${MASTER_IP}"
@@ -88,15 +89,15 @@ variable "credentials_cipassword"{
             sshPut remote: kali, from: 'DAST/kali_wpscan.sh', into: '.'
             sshCommand remote: kali, command: "chmod +x kali_zap.sh && ./kali_zap.sh {{INSERIRE ENDPOINT PER ZAP}} /tmp/kali_wpscan_Report.html"
             
-            withCredentials([usernamePassword(credentialsId: 'digirolamoluca', passwordVariable: 'gittabbodege9', usernameVariable: 'digirolamoluca')]) {
+            withCredentials([usernamePassword(credentialsId: 'digirolamoluca', passwordVariable: 'gittabbodege9', usernameVariable: 'digirolamoluca')]) {//5
               sh 'git remote set-url origin "https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/provaorga/${JOB_NAME}.git"'
               sh 'git add Results/*'
               sh 'git commit -m "Add report File"'
               sh 'git push origin HEAD:main'
-            }
-          }
-        }
-      }
-    }
+            }//5
+          }//4
+        }//3
+      }//2
+    }//1
   }
 }
