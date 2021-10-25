@@ -11,8 +11,8 @@ pipeline {
         withCredentials([usernamePassword(credentialsId: 'Proxmox', passwordVariable: 'xbXif4P82Q88iA==', usernameVariable: 'th_digirolamo')]) {
           sh label: '', script: 'cd Provisioning; terraform init '
           sh label: '', script: 'cd Provisioning; export PM_USER=${USER}; export PM_PASS=${PASSWORD}; terraform apply  --auto-approve'
-        */
-        }
+        
+        } */
         
       }
     }
