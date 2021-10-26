@@ -22,8 +22,8 @@ resource "proxmox_vm_qemu" "proxmox_vm1" {
             password: ${var.credentials_cipassword[count.index]}
             root pass: ${var.credentials_cipassword[count.index]}
         EOT
- // ciuser=  ${var.credentials_ciuser[count.index]}
- // cipassword=  ${var.credentials_cipassword[count.index]}
+ ciuser=  ${var.credentials_ciuser[count.index]}
+ cipassword=  ${var.credentials_cipassword[count.index]}
   memory = 4096
   cores = "4"
   cpu = "kvm64"
