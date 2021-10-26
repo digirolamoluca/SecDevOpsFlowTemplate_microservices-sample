@@ -8,6 +8,6 @@ terraform {
 }
 provider "proxmox" {
     pm_api_url = "https://10.224.16.41:8006/api2/json"
-    pm_password = "xbXif4P82Q88iA=="
+    //pm_password = "xbXif4P82Q88iA=="
     pm_tls_insecure = "true"
 }
