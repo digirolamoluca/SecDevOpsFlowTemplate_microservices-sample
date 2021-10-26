@@ -35,7 +35,7 @@ resource "proxmox_vm_qemu" "proxmox_vm1" {
   ipconfig0  = "ip=${var.ip_list[count.index]}/24,gw={GATEWAY}"
   
 disk {
-  size         = "32768"
+  size         = "32768M"
   storage      = "nas_storage"
   type         = "scsi"
 }
