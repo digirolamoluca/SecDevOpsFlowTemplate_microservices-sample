@@ -1,3 +1,5 @@
+//LE SINGOLE ATTIVITA' SONO APPLICATE SULL'INTERA APPLICAZIONE (CONTINUO DELLA PRIMA PARTE DELLA PIPELINE "microservices-sample"
+
 pipeline {
   tools{
     terraform 'terraform'
