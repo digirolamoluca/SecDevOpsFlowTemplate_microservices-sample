@@ -16,6 +16,6 @@ provider "proxmox" {
   pm_log_levels = {
     _default = "debug"
     _capturelog = ""
-    
+  }
       
   }
