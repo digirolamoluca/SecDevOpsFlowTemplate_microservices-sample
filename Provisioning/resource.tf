@@ -16,7 +16,7 @@ resource "proxmox_vm_qemu" "proxmox_vm1" {
   count             = 2
   name              = "kub${count.index}"
   target_node       = "pve"
-  clone             = "Deploy"
+  clone             = "Tesi.digirolamo.server.deploy"
   desc              = <<-EOT
             user: ${var.credentials_ciuser[count.index]}
             password: ${var.credentials_cipassword[count.index]}
