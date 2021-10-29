@@ -32,8 +32,8 @@ resource "proxmox_vm_qemu" "proxmox_vm1" {
   hastate    =    "started"
   
   #Example  ipconfig0  = "ip=192.168.6.1${count.index+1}/24,gw=192.168.6.1" 
-  //ipconfig0  = "ip=${var.ip_list[count.index]}/24,gw={GATEWAY}"
-  ipconfig0 = "ip=192.168.6.131${count.index + 1}/24,gw=192.168.6.131"
+  ipconfig0  = "ip=${var.ip_list[count.index]}/24,gw={GATEWAY}"
+  //ipconfig0 = "ip=192.168.6.131${count.index + 1}/24,gw=192.168.6.131"
   
 disk {
   size         = "32768M"
