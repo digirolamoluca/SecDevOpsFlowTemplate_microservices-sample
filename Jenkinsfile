@@ -24,12 +24,12 @@ pipeline {
     stage('Resource Configuration'){
       steps{
         sh 'echo Resource Configuration'
-        /*
+        
         withCredentials([usernamePassword(credentialsId: 'digirolamo2', passwordVariable: '123456789', usernameVariable: 'digirolamo2'), usernamePassword(credentialsId: 'digirolamo2', passwordVariable: '123456789', usernameVariable: ''), usernamePassword(credentialsId: 'digirolamo', passwordVariable: '123456789', usernameVariable: 'digirolamo'), usernamePassword(credentialsId: 'digirolamo', passwordVariable: '123456789', usernameVariable: '')]){
           ansiblePlaybook become: true, credentialsId: 'node', disableHostKeyChecking: true, installation: 'ansible', inventory: 'hosts', playbook: 'Resource Configuration/set_up_cluster.yml'
         
         }
-        */
+        
       }
     }
     stage('Static Assessment Provisioned Environment'){
